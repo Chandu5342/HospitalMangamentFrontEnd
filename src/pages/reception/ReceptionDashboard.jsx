@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
-import { Tab, Nav, Container, Row, Col, Card } from 'react-bootstrap';
+import React, { useState, useEffect, useContext } from 'react';
+import { Tab, Container, Row, Col, Card } from 'react-bootstrap';
 import { FaUserPlus, FaList, FaUserMd } from 'react-icons/fa';
 import AddPatient from './AddPatient.jsx';
 import PatientList from './PatientList.jsx';
 import AssignDoctor from './AssignDoctor.jsx';
+import { getPatients } from '../../api/patientApi.js';
+import { AuthContext } from '../../context/AuthContext.jsx';
 
 const ReceptionDashboard = () => {
+  const { token } = useContext(AuthContext);
   const [key, setKey] = useState('patients');
+  const [patients, setPatients] = useState([]);
+
+  const loadPatients = async () => {
+    const data = await getPatients(token);
+    setPatients(data);
+  };
+
+  useEffect(() => {
+    loadPatients();
+  }, []);
 
   const tabs = [
     { eventKey: 'patients', title: 'Patient List', icon: <FaList /> },
@@ -18,7 +31,6 @@ const ReceptionDashboard = () => {
     <Container className="mt-4">
       <h2 className="mb-4 text-primary">Reception Dashboard</h2>
       
-      {/* Card-based tab navigation */}
       <Row className="mb-4">
         {tabs.map((tab) => (
           <Col key={tab.eventKey} md={4} sm={12} className="mb-3">
@@ -38,17 +50,16 @@ const ReceptionDashboard = () => {
         ))}
       </Row>
 
-      {/* Tab Content */}
       <Tab.Container activeKey={key} onSelect={(k) => setKey(k)}>
         <Tab.Content>
           <Tab.Pane eventKey="patients">
-            <PatientList />
+            <PatientList patients={patients} reloadPatients={loadPatients} />
           </Tab.Pane>
           <Tab.Pane eventKey="add">
-            <AddPatient onPatientAdded={() => setKey('patients')} />
+            <AddPatient onPatientAdded={() => { loadPatients(); setKey('patients'); }} />
           </Tab.Pane>
           <Tab.Pane eventKey="assign">
-            <AssignDoctor onAssigned={() => setKey('patients')} />
+            <AssignDoctor onAssigned={() => loadPatients()} />
           </Tab.Pane>
         </Tab.Content>
       </Tab.Container>

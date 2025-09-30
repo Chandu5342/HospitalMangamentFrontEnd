@@ -1,21 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext.jsx';
-import { fetchPatients } from '../../api/patientApi.js';
 import { Table, Form, Button } from 'react-bootstrap';
+import { getPatients } from '../../api/patientApi.js';
 
-const PatientList = () => {
+const PatientList = ({ patients, reloadPatients }) => {
   const { token } = useContext(AuthContext);
-  const [patients, setPatients] = useState([]);
   const [search, setSearch] = useState('');
 
-  const loadPatients = async () => {
-    const data = await fetchPatients(token, search);
-    setPatients(data);
+  const handleSearch = async () => {
+    const data = await getPatients(token, search);
+    reloadPatients(data);
   };
-
-  useEffect(() => {
-    loadPatients();
-  }, []);
 
   return (
     <div className="container mt-4">
@@ -28,7 +23,7 @@ const PatientList = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <Button onClick={loadPatients}>Search</Button>
+        <Button onClick={handleSearch}>Search</Button>
       </div>
       <Table striped bordered hover responsive>
         <thead>

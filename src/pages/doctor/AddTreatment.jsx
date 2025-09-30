@@ -2,20 +2,25 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext.jsx';
 import { addTreatmentRecord } from '../../api/doctorApi.js';
 import { Form, Button, Card, Container } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const AddTreatment = () => {
   const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     patient_id: '', diagnosis: '', prescription: ''
   });
 
   const handleAdd = async () => {
-    if (!formData.patient_id || !formData.diagnosis) return alert('Patient ID and Diagnosis required');
+    if (!formData.patient_id || !formData.diagnosis) {
+      return alert('Patient ID and Diagnosis required');
+    }
 
     try {
       await addTreatmentRecord(token, formData);
       alert('Treatment added successfully');
       setFormData({ patient_id: '', diagnosis: '', prescription: '' });
+      navigate('/doctor'); // redirect back to dashboard
     } catch (error) {
       alert('Failed to add treatment');
     }

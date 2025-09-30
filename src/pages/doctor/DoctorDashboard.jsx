@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext.jsx';
 import { fetchDoctorPatients } from '../../api/doctorApi.js';
 import { Card, Row, Col, Form, Button, Container } from 'react-bootstrap';
-import { FaUserInjured, FaNotesMedical } from 'react-icons/fa';
+import { FaUserInjured, FaNotesMedical, FaPlusCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 const DoctorDashboard = () => {
@@ -27,6 +27,15 @@ const DoctorDashboard = () => {
   return (
     <Container className="mt-4">
       <h2 className="mb-4 text-success">Doctor Dashboard</h2>
+
+      {/* Add Treatment Button */}
+      <Button
+        className="mb-4"
+        variant="primary"
+        onClick={() => navigate('/doctor/add-treatment')}
+      >
+        <FaPlusCircle className="me-2" /> Add Treatment
+      </Button>
 
       {/* Search */}
       <Form className="d-flex mb-4">

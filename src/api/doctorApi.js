@@ -28,3 +28,12 @@ export const fetchPatientHistory = async (token, patientId) => {
   });
   return response.data;
 };
+
+
+export const fetchDoctors = async (token) => {
+  const res = await axios.get(`http://localhost:5000/api/admin/users`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  // filter only doctors
+  return res.data.filter(user => user.role === 'doctor');
+};
