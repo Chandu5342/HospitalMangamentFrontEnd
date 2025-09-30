@@ -2,9 +2,10 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:5000/api/patients';
 
-export const getPatients = async (token, search = '') => {
-  const res = await axios.get(`${BASE_URL}?search=${search}`, {
-    headers: { Authorization: `Bearer ${token}` }
+export const getPatients = async (token, filters = {}) => {
+  const res = await axios.get(BASE_URL, {
+    headers: { Authorization: `Bearer ${token}` },
+    params: filters, // Axios serializes object to query string
   });
   return res.data;
 };
