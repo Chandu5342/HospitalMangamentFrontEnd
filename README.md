@@ -116,3 +116,18 @@ Use the same credentials as backend:
 | Doctor    | [doctor@gmail.com](mailto:doctor1@gmail.com)     | 123456   |
 | Reception | [reception@gmail.com](mailto:reception@gmail.com) | 123456   |
 | lab | [lab@gmail.com](mailto:lab@gmail.com) | 123456   |
+
+
+Share Screenshots of the Frontend
+
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/b3403e31-7703-4148-9134-cf9fcaa8cec4" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/18d559da-b91b-4616-ad79-e924cbcfe6a0" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/d17d23bd-649d-4847-80f6-16a55ce585da" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/c062106c-ad6d-4a06-8150-285458f9331e" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/da76b272-3356-48de-bab6-cc41a8c962ae" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/6f6321f0-a1bf-4da4-ae46-5493dbbf997f" />
+
+
+
+
+
