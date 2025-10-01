@@ -1,6 +1,7 @@
 import axios from 'axios';
+const BASE_URL = 'https://hospitalmangamentbackend.onrender.com/api/auth';
+//const BASE_URL = 'http://localhost:5000/api/auth';
 
-const BASE_URL = ('https://hospitalmangamentbackend.onrender.com' || 'http://localhost:5000') + '/api/auth';
 
 export const loginUser = async (data) => {
   console.log(BASE_URL)

@@ -4,7 +4,7 @@ import { getBills, payBill } from '../../api/billingApi.js';
 import { Table, Button } from 'react-bootstrap';
 import jsPDF from 'jspdf';
 
-const BillList = ({ patientId }) => {
+const BillList = ({ patientId, reloadFlag }) => {
   const { token } = useContext(AuthContext);
   const [bills, setBills] = useState([]);
 
@@ -13,7 +13,9 @@ const BillList = ({ patientId }) => {
     setBills(data);
   };
 
-  useEffect(() => { if (patientId) loadBills(); }, [patientId]);
+  useEffect(() => {
+    if (patientId) loadBills();
+  }, [patientId, reloadFlag]); // <-- reloadFlag triggers refresh
 
   const handlePay = async (billId) => {
     await payBill(token, patientId, billId);
@@ -23,7 +25,6 @@ const BillList = ({ patientId }) => {
   const handleDownloadPDF = (bill) => {
     const doc = new jsPDF();
 
-    // --- Header ---
     doc.setFontSize(20);
     doc.text(' My Hospital', 14, 20);
     doc.setFontSize(12);
@@ -34,7 +35,6 @@ const BillList = ({ patientId }) => {
     doc.setLineWidth(0.5);
     doc.line(14, 45, 196, 45);
 
-    // --- Bill Info ---
     doc.setFontSize(14);
     doc.text('Invoice', 14, 52);
 
@@ -45,12 +45,10 @@ const BillList = ({ patientId }) => {
     doc.text(`Status: ${bill.status}`, 14, 76);
     doc.text(`Date: ${today.toLocaleDateString()}`, 14, 84);
 
-    // --- Items Table ---
     const startY = 92;
-    const colX = [14, 90, 160]; // columns: #, Description, Amount
+    const colX = [14, 90, 160];
     const rowHeight = 8;
 
-    // Table Header
     doc.setFont(undefined, 'bold');
     doc.text('#', colX[0], startY);
     doc.text('Description', colX[1], startY);
@@ -67,11 +65,9 @@ const BillList = ({ patientId }) => {
       currentY += rowHeight;
     });
 
-    // --- Total ---
     doc.setFont(undefined, 'bold');
     doc.text(`Total: $${bill.total_amount}`, colX[1], currentY + 4);
 
-    // Save PDF
     doc.save(`Bill_${bill.id}.pdf`);
   };
 

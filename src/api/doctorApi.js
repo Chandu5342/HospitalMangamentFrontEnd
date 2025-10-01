@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const BASE_URL = ('https://hospitalmangamentbackend.onrender.com' || 'http://localhost:5000') + '/api/doctor';
+const BASE_URL = 'https://hospitalmangamentbackend.onrender.com/api/doctor';
+//const BASE_URL = 'http://localhost:5000/api/doctor';
+
 
 // Get all patients assigned to doctor
 export const fetchDoctorPatients = async (token, search = '') => {

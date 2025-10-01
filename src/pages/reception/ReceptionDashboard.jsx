@@ -14,11 +14,11 @@ const ReceptionDashboard = () => {
   const [key, setKey] = useState('patients');
   const [patients, setPatients] = useState([]);
   const [selectedPatient, setSelectedPatient] = useState('');
+  const [reloadBillsFlag, setReloadBillsFlag] = useState(false);
 
-  // Load all patients once (for dropdowns & initial data)
   const loadPatients = async () => {
     try {
-      const data = await getPatients(token, { limit: 100 }); // fetch all
+      const data = await getPatients(token, { limit: 100 });
       setPatients(Array.isArray(data.patients) ? data.patients : []);
     } catch (error) {
       console.error('Error fetching patients:', error);
@@ -29,6 +29,8 @@ const ReceptionDashboard = () => {
   useEffect(() => {
     loadPatients();
   }, []);
+
+  const reloadBills = () => setReloadBillsFlag(prev => !prev);
 
   const tabs = [
     { eventKey: 'patients', title: 'Patient List', icon: <FaList /> },
@@ -98,8 +100,8 @@ const ReceptionDashboard = () => {
 
             {selectedPatient && (
               <>
-                <AddBill patientId={selectedPatient} onBillAdded={() => console.log('Bill added')} />
-                <BillList patientId={selectedPatient} />
+                <AddBill patientId={selectedPatient} onBillAdded={reloadBills} />
+                <BillList patientId={selectedPatient} reloadFlag={reloadBillsFlag} />
               </>
             )}
           </Tab.Pane>

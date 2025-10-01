@@ -22,7 +22,7 @@ const AddBill = ({ patientId, onBillAdded }) => {
       await createBill(token, patientId, items, total);
       setItems([{ description: '', amount: '' }]);
       setTotal(0);
-      if (onBillAdded) onBillAdded();
+      if (onBillAdded) onBillAdded(); // Trigger parent to reload bills
     } catch (err) {
       console.error('Failed to create bill', err);
     }

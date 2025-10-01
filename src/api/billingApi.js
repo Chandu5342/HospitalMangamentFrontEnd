@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = ('https://hospitalmangamentbackend.onrender.com' || 'http://localhost:5000') + '/api/billings';
+const BASE_URL = 'https://hospitalmangamentbackend.onrender.com/api/billings';
+//const BASE_URL = 'http://localhost:5000/api/billings';
 
 
 export const createBill = async (token, patientId, items, totalAmount) => {
