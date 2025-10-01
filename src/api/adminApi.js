@@ -1,35 +1,32 @@
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/admin';
 
-// Add new user
+const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/admin';
+
 export const addUser = async (token, userData) => {
-  const response = await axios.post(`${BASE_URL}/users`, userData, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
-  return response.data;
+  const res = await axios.post(`${BASE_URL}/users`, userData, { headers: { Authorization: `Bearer ${token}` } });
+  return res.data;
 };
 
-// List all users
-export const listUsers = async (token) => {
-  const response = await axios.get(`${BASE_URL}/users`, {
-    headers: { Authorization: `Bearer ${token}` }
+export const listUsers = async (token, page=1, limit=10, search='', role='') => {
+  const res = await axios.get(`${BASE_URL}/users`, {
+    headers: { Authorization: `Bearer ${token}` },
+    params: { page, limit, search, role }
   });
-  return response.data;
+  return res.data;
 };
 
-// Delete user
 export const deleteUser = async (token, userId) => {
-  const response = await axios.delete(`${BASE_URL}/users/${userId}`, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
-  return response.data;
+  const res = await axios.delete(`${BASE_URL}/users/${userId}`, { headers: { Authorization: `Bearer ${token}` } });
+  return res.data;
 };
 
-// Dashboard stats
+export const updateUser = async (token, userId, data) => {
+  const res = await axios.put(`${BASE_URL}/users/${userId}`, data, { headers: { Authorization: `Bearer ${token}` } });
+  return res.data;
+};
+
 export const fetchDashboardStats = async (token) => {
-  const response = await axios.get(`${BASE_URL}/dashboard`, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
-  return response.data;
+  const res = await axios.get(`${BASE_URL}/dashboard`, { headers: { Authorization: `Bearer ${token}` } });
+  return res.data;
 };

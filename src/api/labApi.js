@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/lab';
+const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/lab';
 
 export const uploadLabReport = async (token, { patient_id, report_name, file }) => {
   const formData = new FormData();

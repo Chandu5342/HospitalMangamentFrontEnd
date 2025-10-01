@@ -10,7 +10,7 @@ import PatientHistory from "./pages/doctor/PatientHistory.jsx";
 import ReceptionDashboard from './pages/reception/ReceptionDashboard.jsx';
 import DoctorDashboard from './pages/doctor/DoctorDashboard.jsx';
 import LabDashboard from './pages/lab/LabDashboard.jsx';
-import AdminDashboard from './pages/admin/DashboardStats.jsx';
+import AdminDashboard from './pages/admin/AdminDashboard.jsx';
 
 function App() {
   return (

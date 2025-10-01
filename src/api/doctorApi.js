@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/doctor';
+const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/doctor';
 
 // Get all patients assigned to doctor
 export const fetchDoctorPatients = async (token, search = '') => {
